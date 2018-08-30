@@ -2,6 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const {deEscalate} = pquire("lib/util/safety");
 
 const Router = express.Router;
 const app = express();
@@ -34,7 +35,9 @@ module.exports = {
     // app.get("/", (req, res) => res.send("Hello World!"));
     //
     app.listen(port, function() {
-      console.log("Listening on port 8080");
+      deEscalate();
+      
+      log.trace("Listening on port 8080");
     });
   }
 };

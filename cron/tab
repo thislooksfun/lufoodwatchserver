@@ -1,0 +1,2 @@
+# database cleanup
+0,30 * * * * {user} node {project_root}/scripts/dbcleanup.js

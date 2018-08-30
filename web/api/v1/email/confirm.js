@@ -10,6 +10,8 @@ const db = pquire("lib/api/v1/database");
 async function get(req, res) {
   console.log(req.params.token);
   await db.confirmEmail(req.params.token);
+  
+  // TODO: Make this page look better
   res.status(codes.ok).send("Success!");
 }
 

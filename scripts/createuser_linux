@@ -1,0 +1,24 @@
+#!/bin/bash
+# This script creates a user account under macOS
+# Adapted from https://gist.github.com/jhbush/3087016
+
+# === Typically, this is all you need to edit ===
+
+USERNAME=$1
+
+# ====
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "Please run $0 as root." && exit 1; fi
+
+id $USERNAME > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+  USERID=$(id -u $USERNAME)
+  echo "Group $USERNAME already exists with id $USERID, skipping..."
+else
+  # Create user and group
+  useradd -r $USERNAME
+  
+  USERID=$(id -u $USERNAME)
+  echo "Created user #$USERID: $GROUPNAME"
+fi

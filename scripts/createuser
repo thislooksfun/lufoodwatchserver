@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# 'cd' to containing directory
+cd -P -- "$(dirname -- "$0")"
+
+unamestr=$(uname)
+if [[ "$unamestr" == "Darwin" ]]; then
+  chmod +x ./createuser_mac
+  ./createuser_mac "$1"
+elif [[ "$unamestr" == "Linux" ]]; then
+  chmod +x ./createuser_linux
+  ./createuser_linux "$1"
+else
+  echo "Unsupported OS '$unamestr'"
+  exit 1
+fi
