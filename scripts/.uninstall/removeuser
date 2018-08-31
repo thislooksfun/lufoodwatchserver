@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
+# 'cd' to containing directory
+cd -P -- "$(dirname -- "$0")"
+
+if [ ! -f ../../.username ]; then
+  echo ".username file not found, nothing to do!"
+  exit 0
+fi
+
+username=$(cat ../../.username)
+
+unamestr=$(uname)
+if [[ "$unamestr" == "Darwin" ]]; then
+  chmod +x ./removeuser_mac
+  ./removeuser_mac "$username"
+elif [[ "$unamestr" == "Linux" ]]; then
+  chmod +x ./removeuser_linux
+  ./removeuser_linux "$username"
+else
+  echo "Unsupported OS '$unamestr'"
+  exit 1
+fi
+
+rm ../../.username

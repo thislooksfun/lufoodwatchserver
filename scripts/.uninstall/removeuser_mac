@@ -1,0 +1,43 @@
+#!/bin/bash
+# This script creates a user account under macOS
+# Adapted from https://gist.github.com/jhbush/3087016
+
+# === Typically, this is all you need to edit ===
+
+USERNAME=$1
+
+if [[ -z "$USERNAME" ]]; then
+  echo "Error removing user: No username specified"
+  exit 1
+fi
+
+# ====
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
+
+dscl . -read "/Groups/$USERNAME" > /dev/null 2>&1
+if [[ $? -ne 0 ]]; then
+  echo "Group $USERNAME does not exist, skipping..."
+else
+  GROUPID=$(dscl . -read "/Groups/$USERNAME" PrimaryGroupID | awk '{print $2}')
+  
+  # Delete the group
+  dscl . -delete "/Groups/$USERNAME"
+  
+  echo "Deleted group #$GROUPID: $USERNAME"
+fi
+
+
+dscl . -read "/Users/$USERNAME" > /dev/null 2>&1
+if [[ $? -ne 0 ]]; then
+  echo "User $USERNAME does not exist, skipping..."
+else
+  USERID=$(dscl . -read "/Users/$USERNAME" UniqueID | awk '{print $2}')
+  
+  # Delete the user account
+  dscl . -delete "/Users/$USERNAME"
+  
+  echo "Deleted user #$USERID: $USERNAME"
+fi

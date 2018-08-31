@@ -10,20 +10,22 @@ if (process.getuid == null || process.getuid() !== 0) {
 
 
 const fs = require("fs");
-const path = require("path");
-const {execSync} = require("child_process");
 
 if (!fs.existsSync("/etc/cron.d")) {
-  console.error("ERROR: /etc/cron.d does not exit. Are you running this on macOS or Windows?");
+  console.error("Error installing crontab: /etc/cron.d does not exit. Are you running this on macOS or Windows?");
   process.exit(1);
 }
 
 function username(id) {
-  return execSync(`id -nu ${id}`, {encoding: "utf-8"}).trim();
+  return require("child_process").execSync(`id -nu ${id}`, {encoding: "utf-8"}).trim();
 }
 
 // SUDO_UID will always exist, since we are forcing this to run as root (see lines 6-9)
-let user = username(process.env.SUDO_UID);
+let user = process.argv[2] || username(process.env.SUDO_UID);
+
+console.log(`Installing crontab to run as user '${user}'`);
+
+const path = require("path");
 
 let projectRoot = path.dirname(__dirname);
 let tab = fs.readFileSync(path.join(projectRoot, "cron/tab"), "utf-8");

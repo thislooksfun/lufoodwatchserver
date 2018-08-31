@@ -1,0 +1,16 @@
+#!/bin/bash
+
+user="_lufoodwatch"
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
+# 'cd' to containing directory
+cd -P -- "$(dirname -- "$0")"
+
+# Uninstall crontab
+node .uninstall/uninstall_crontab.js
+
+# Remove user and group (if needed)
+chmod +x .uninstall/removeuser
+.uninstall/removeuser

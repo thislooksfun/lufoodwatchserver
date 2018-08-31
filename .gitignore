@@ -62,3 +62,6 @@ typings/
 
 # Test script
 test.js
+
+# Username file
+.username

@@ -1,16 +1,24 @@
 #!/bin/bash
 
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
 # 'cd' to containing directory
 cd -P -- "$(dirname -- "$0")"
+
+username="$1"
 
 unamestr=$(uname)
 if [[ "$unamestr" == "Darwin" ]]; then
   chmod +x ./createuser_mac
-  ./createuser_mac "$1"
+  ./createuser_mac "$username"
 elif [[ "$unamestr" == "Linux" ]]; then
   chmod +x ./createuser_linux
-  ./createuser_linux "$1"
+  ./createuser_linux "$username"
 else
   echo "Unsupported OS '$unamestr'"
   exit 1
 fi
+
+echo "$username" > ../../.username
+chown "$username:$username" ../../.username

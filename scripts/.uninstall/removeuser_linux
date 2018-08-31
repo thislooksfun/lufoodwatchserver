@@ -1,0 +1,42 @@
+#!/bin/bash
+# This script creates a user account under macOS
+# Adapted from https://gist.github.com/jhbush/3087016
+
+# === Typically, this is all you need to edit ===
+
+USERNAME=$1
+
+if [[ -z "$USERNAME" ]]; then
+  echo "Error removing user: No username specified"
+  exit 1
+fi
+
+# ====
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
+id $USERNAME > /dev/null 2>&1
+if [[ $? -ne 0 ]]; then
+  echo "User $USERNAME not found, skipping..."
+else
+  USERID=$(id -u $USERNAME)
+  
+  
+  echo -n "Removing cron jobs... "
+  crontab -r -u "$USERNAME"
+  echo "done"
+  
+  
+  prefix="Deleting all files owned by $USERNAME..."
+  notice="(this may take a while)"
+  clear="\033[K"
+  echo -n "$prefix $notice"
+  find / -user "$USERNAME" -exec printf "\rDeleting: %s$clear\n%s" "{}" "$prefix $notice" \; -delete
+  echo -e "\r$prefix done$clear"
+  
+  
+  # Remove user and group
+  userdel $USERNAME
+  echo "Removed user #$USERID: $USERNAME"
+fi

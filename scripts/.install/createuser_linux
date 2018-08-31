@@ -6,19 +6,23 @@
 
 USERNAME=$1
 
+if [[ -z "$USERNAME" ]]; then
+  echo "Error removing user: No username specified"
+  exit 1
+fi
+
 # ====
 
 # Ensure running as root
-if [[ $UID -ne 0 ]]; then echo "Please run $0 as root." && exit 1; fi
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
-id $USERNAME > /dev/null 2>&1
+USERID=$(id -u $USERNAME)
 if [[ $? -eq 0 ]]; then
-  USERID=$(id -u $USERNAME)
-  echo "Group $USERNAME already exists with id $USERID, skipping..."
+  echo "User $USERNAME already exists with id $USERID, skipping..."
 else
   # Create user and group
   useradd -r $USERNAME
   
   USERID=$(id -u $USERNAME)
-  echo "Created user #$USERID: $GROUPNAME"
+  echo "Created user #$USERID: $USERNAME"
 fi
