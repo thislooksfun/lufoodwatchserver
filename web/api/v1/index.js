@@ -8,6 +8,7 @@ module.exports = {
     pquire("email").setupRoutes(email);
     r.use("/email", email);
     
+    pquire("signin").setupRoutes(r);
     pquire("signup").setupRoutes(r);
   }
 };
