@@ -44,7 +44,7 @@ else
   
   # Create the user account
   dscl . -create "/Users/$USERNAME"
-  dscl . -create "/Users/$USERNAME" UserShell /bin/bash
+  dscl . -create "/Users/$USERNAME" UserShell /sbin/nologin
   dscl . -create "/Users/$USERNAME" UniqueID "$USERID"
   dscl . -create "/Users/$USERNAME" PrimaryGroupID "$GROUPID"
   dscl . -create "/Users/$USERNAME" IsHidden 1
