@@ -47,6 +47,7 @@ else
   dscl . -create "/Users/$USERNAME" UserShell /bin/bash
   dscl . -create "/Users/$USERNAME" UniqueID "$USERID"
   dscl . -create "/Users/$USERNAME" PrimaryGroupID "$GROUPID"
+  dscl . -create "/Users/$USERNAME" IsHidden 1
   
   echo "Created user #$USERID: $USERNAME"
 fi
