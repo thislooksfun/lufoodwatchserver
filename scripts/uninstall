@@ -9,11 +9,14 @@ if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 cd -P -- "$(dirname -- "$0")"
 
 # Uninstall crontab
+echo -e "\nUninstalling crontab..."
 node .uninstall/uninstall_crontab.js
 
 # Remove user and group (if needed)
+echo -e "\nRemoving user and group..."
 chmod +x .uninstall/removeuser
 .uninstall/removeuser
 
 # Remove the program
+echo -e "\nDeleting install directory"
 rm -rf /var/lufoodwatch
