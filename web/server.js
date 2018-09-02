@@ -1,5 +1,7 @@
 "use strict";
 
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const {deEscalate} = pquire("lib/util/safety");
@@ -32,12 +34,19 @@ module.exports = {
     app.use("/api", api);
     add405(app._router);
     
-    // app.get("/", (req, res) => res.send("Hello World!"));
-    //
+    var username;
+    try {
+      username = fs.readFileSync(path.join(__dirname, "../.username"), "utf-8").trim();
+    } catch (e) {
+      log.fatal("Username file not found, aborting!");
+    }
+    
     app.listen(port, function() {
-      deEscalate();
-      
       log.trace("Listening on port 8080");
+      
+      console.log("1", process.cwd());
+      deEscalate({username: username});
+      console.log("2", process.cwd());
     });
   }
 };

@@ -39,5 +39,8 @@ else
   # Delete the user account
   dscl . -delete "/Users/$USERNAME"
   
+  # Delete the home directory
+  rm -rf /var/lufoodwatch
+  
   echo "Deleted user #$USERID: $USERNAME"
 fi

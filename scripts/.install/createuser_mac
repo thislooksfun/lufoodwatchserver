@@ -47,7 +47,13 @@ else
   dscl . -create "/Users/$USERNAME" UserShell /sbin/nologin
   dscl . -create "/Users/$USERNAME" UniqueID "$USERID"
   dscl . -create "/Users/$USERNAME" PrimaryGroupID "$GROUPID"
+  dscl . -create "/Users/$USERNAME" NFSHomeDirectory "/var/lufoodwatch"
   dscl . -create "/Users/$USERNAME" IsHidden 1
+  
+  # Set ownership of the home directory
+  chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
+  # Remove write permissions for all files in (and including) the home directory
+  chmod -R ugo-w /var/lufoodwatch
   
   echo "Created user #$USERID: $USERNAME"
 fi

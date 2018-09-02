@@ -5,24 +5,32 @@ user="_lufoodwatch"
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
-# 'cd' to containing directory
-cd -P -- "$(dirname -- "$0")"
-
-# Install node (if needed)
-echo -e "\nInstalling node..."
-chmod +x .install/install_node
-su - "$SUDO_USER" -c "cd $(pwd) ; .install/install_node ;"'exit $?'
-if [[ $? -ne 0 ]]; then
+if [ -z "$(type -t "git")" ]; then
+  echo "ERROR: Could not find git binary."
   exit 1
 fi
 
-# Create user and group (if needed)
-echo -e "\nCreating user and group..."
-chmod +x .install/createuser
-.install/createuser "$user"
+git clone https://github.com/thislooksfun/lufoodwatchserver.git /var/lufoodwatch
 
-# Install crontab
-echo -e "\nInstalling crontab..."
-node .install/install_crontab.js "$user"
+cd /var/lufoodwatch/scripts
 
-echo -e "\nInstallation finished successfully!\n"
+pwd
+
+# # Install node (if needed)
+# echo -e "\nInstalling node..."
+# chmod +x .install/install_node
+# su - "$SUDO_USER" -c "cd $(pwd) ; .install/install_node ;"'exit $?'
+# if [[ $? -ne 0 ]]; then
+#   exit 1
+# fi
+#
+# # Create user and group (if needed)
+# echo -e "\nCreating user and group..."
+# chmod +x .install/createuser
+# .install/createuser "$user"
+#
+# # Install crontab
+# echo -e "\nInstalling crontab..."
+# node .install/install_crontab.js "$user"
+#
+# echo -e "\nInstallation finished successfully!\n"
