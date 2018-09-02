@@ -27,6 +27,12 @@ echo -e "\nCreating user and group..."
 chmod +x .install/createuser
 .install/createuser "$USERNAME"
 
+
+# Install node deps
+echo -e "\nInstalling dependencies..."
+npm install --production
+
+
 # Install crontab
 echo -e "\nInstalling crontab..."
 node .install/install_crontab.js "$USERNAME"
