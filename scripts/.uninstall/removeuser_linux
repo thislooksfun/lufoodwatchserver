@@ -28,12 +28,12 @@ else
   echo "done"
   
   
-  prefix="Deleting all files owned by $USERNAME..."
-  notice="(this may take a while)"
-  clear="\033[K"
-  echo -n "$prefix $notice"
-  find / -user "$USERNAME" -exec printf "\rDeleting: %s$clear\n%s" "{}" "$prefix $notice" \; -delete
-  echo -e "\r$prefix done$clear"
+  # prefix="Deleting all files owned by $USERNAME..."
+  # notice="(this may take a while)"
+  # clear="\033[K"
+  # echo -n "$prefix $notice"
+  # find / -user "$USERNAME" -exec printf "\rDeleting: %s$clear\n%s" "{}" "$prefix $notice" \; -delete
+  # echo -e "\r$prefix done$clear"
   
   
   # Remove user and group
