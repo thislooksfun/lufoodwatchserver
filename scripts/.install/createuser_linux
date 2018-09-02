@@ -23,11 +23,6 @@ else
   # Create user and group
   useradd -d /var/lufoodwatch -s /sbin/nologin -r $USERNAME
   
-  # Set ownership of the home directory
-  chown "$USERNAME:$USERNAME" /var/lufoodwatch
-  # Remove write permissions for all files in (and including) the home directory
-  chmod -R ugo-w /var/lufoodwatch
-  
   USERID=$(id -u $USERNAME)
   echo "Created user #$USERID: $USERNAME"
 fi
