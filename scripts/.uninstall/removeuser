@@ -11,15 +11,15 @@ if [ ! -f ../../.username ]; then
   exit 0
 fi
 
-username=$(cat ../../.username)
+USERNAME=$(cat ../../.username)
 
 unamestr=$(uname)
 if [[ "$unamestr" == "Darwin" ]]; then
   chmod +x ./removeuser_mac
-  ./removeuser_mac "$username"
+  ./removeuser_mac "$USERNAME"
 elif [[ "$unamestr" == "Linux" ]]; then
   chmod +x ./removeuser_linux
-  ./removeuser_linux "$username"
+  ./removeuser_linux "$USERNAME"
 else
   echo "Unsupported OS '$unamestr'"
   exit 1

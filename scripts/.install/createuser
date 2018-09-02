@@ -6,24 +6,24 @@ if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 # 'cd' to containing directory
 cd -P -- "$(dirname -- "$0")"
 
-username="$1"
+USERNAME="$1"
 
 unamestr=$(uname)
 if [[ "$unamestr" == "Darwin" ]]; then
   chmod +x ./createuser_mac
-  ./createuser_mac "$username"
+  ./createuser_mac "$USERNAME"
 elif [[ "$unamestr" == "Linux" ]]; then
   chmod +x ./createuser_linux
-  ./createuser_linux "$username"
+  ./createuser_linux "$USERNAME"
 else
   echo "Unsupported OS '$unamestr'"
   exit 1
 fi
 
-echo "$username" > ../../.username
-chown "$username:$username" ../../.username
+echo "$USERNAME" > ../../.username
+chown "$USERNAME:$USERNAME" ../../.username
 
 # Set ownership of the home directory
-chown -R "$username:$username" /var/lufoodwatch
+chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
 # Remove write permissions for all files in (and including) the home directory
 chmod -R ugo-w /var/lufoodwatch
