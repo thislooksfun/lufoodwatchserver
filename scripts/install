@@ -14,23 +14,21 @@ git clone https://github.com/thislooksfun/lufoodwatchserver.git /var/lufoodwatch
 
 cd /var/lufoodwatch/scripts
 
-pwd
+# Install node (if needed)
+echo -e "\nInstalling node..."
+chmod +x .install/install_node
+su - "$SUDO_USER" -c "cd $(pwd) ; .install/install_node ;"'exit $?'
+if [[ $? -ne 0 ]]; then
+  exit 1
+fi
 
-# # Install node (if needed)
-# echo -e "\nInstalling node..."
-# chmod +x .install/install_node
-# su - "$SUDO_USER" -c "cd $(pwd) ; .install/install_node ;"'exit $?'
-# if [[ $? -ne 0 ]]; then
-#   exit 1
-# fi
-#
-# # Create user and group (if needed)
-# echo -e "\nCreating user and group..."
-# chmod +x .install/createuser
-# .install/createuser "$user"
-#
-# # Install crontab
-# echo -e "\nInstalling crontab..."
-# node .install/install_crontab.js "$user"
-#
-# echo -e "\nInstallation finished successfully!\n"
+# Create user and group (if needed)
+echo -e "\nCreating user and group..."
+chmod +x .install/createuser
+.install/createuser "$user"
+
+# Install crontab
+echo -e "\nInstalling crontab..."
+node .install/install_crontab.js "$user"
+
+echo -e "\nInstallation finished successfully!\n"
