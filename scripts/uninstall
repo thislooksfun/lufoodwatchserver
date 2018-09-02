@@ -18,5 +18,7 @@ chmod +x .uninstall/removeuser
 .uninstall/removeuser
 
 # Remove the program
-echo -e "\nDeleting install directory"
+echo -e "\nDeleting install directory..."
 rm -rf /var/lufoodwatch
+
+echo -e "\nSuccessfully uninstalled LUFoodWatchServer!\n"
