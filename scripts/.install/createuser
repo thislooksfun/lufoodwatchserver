@@ -22,8 +22,3 @@ fi
 
 echo "$USERNAME" > ../../.username
 chown "$USERNAME:$USERNAME" ../../.username
-
-# Set ownership of the home directory
-chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
-# Remove write permissions for all files in (and including) the home directory
-chmod -R ugo-w /var/lufoodwatch

@@ -33,6 +33,12 @@ echo -e "\nInstalling dependencies..."
 npm install --production
 
 
+# Set ownership of the home directory
+chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
+# Remove write permissions for all files in (and including) the home directory
+chmod -R ugo-w /var/lufoodwatch
+
+
 # Install crontab
 echo -e "\nInstalling crontab..."
 node .install/install_crontab.js "$USERNAME"
