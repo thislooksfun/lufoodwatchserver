@@ -3,7 +3,7 @@
 user="_lufoodwatch"
 
 # Ensure running as root
-if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+if [[ $UID -ne 0 ]]; then echo "The LUFoodWatchServer install script requires root."; exit 1; fi
 
 if [ -z "$(type -t "git")" ]; then
   echo "ERROR: Could not find git binary."
