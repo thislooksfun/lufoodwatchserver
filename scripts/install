@@ -10,7 +10,7 @@ if [ -z "$(type -t "git")" ]; then
   exit 1
 fi
 
-git clone https://github.com/thislooksfun/lufoodwatchserver.git /var/lufoodwatch
+git clone --depth 1 --single-branch https://github.com/thislooksfun/lufoodwatchserver.git /var/lufoodwatch
 
 cd /var/lufoodwatch/scripts
 
