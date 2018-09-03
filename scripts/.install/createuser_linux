@@ -20,8 +20,10 @@ USERID=$(id -u $USERNAME)
 if [[ $? -eq 0 ]]; then
   echo "User $USERNAME already exists with id $USERID, skipping..."
 else
+  mkdir /var/lufoodwatch/.home
+  
   # Create user and group
-  useradd -d /var/lufoodwatch -s /sbin/nologin -r $USERNAME
+  useradd -d /var/lufoodwatch/.home -s /bin/bash -r $USERNAME
   
   USERID=$(id -u $USERNAME)
   echo "Created user #$USERID: $USERNAME"

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "Startup script must be run as root"
+  exit 1
+fi
+
+echo -e "\nShutting down the server..."
+
+USERNAME=$(cat /var/lufoodwatch/.username)
+
+cd /var/lufoodwatch
+. .home/.bash_profile
+
+PM2=$(su - "$USERNAME" -cl 'which pm2')
+
+echo ">> $PM2"
+
+echo -e "\nRemoving PM2 startup script..."
+"$PM2" unstartup -u _lufoodwatch --hp /private/var/lufoodwatch/.home  # This unfortunately has to be run as root
+
+echo -e "\nStopping and deleting all PM2 processes..."
+su - "$USERNAME" -c 'pm2 stop all && pm2 delete all'

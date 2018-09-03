@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Ensure running as root
+if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
+
+# 'cd' to containing directory
+cd -P -- "$(dirname -- "$0")"
+
+USERNAME="$1"
+
+unamestr=$(uname)
+if [[ "$unamestr" == "Darwin" ]]; then
+  dscl . -create "/Users/$USERNAME" UserShell /sbin/nologin
+elif [[ "$unamestr" == "Linux" ]]; then
+  usermod -s /sbin/nologin
+else
+  echo "Unsupported OS '$unamestr'"
+  exit 1
+fi

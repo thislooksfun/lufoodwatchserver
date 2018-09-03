@@ -25,6 +25,7 @@ function add405(router) {
   }
 }
 
+var server = null;
 module.exports = {
   start() {
     app.use(bodyParser.json());
@@ -41,12 +42,20 @@ module.exports = {
       log.fatal("Username file not found, aborting!");
     }
     
-    app.listen(port, function() {
+    this.running = true;
+    server = app.listen(port, function() {
       log.trace("Listening on port 8080");
-      
-      console.log("1", process.cwd());
       deEscalate({username: username});
-      console.log("2", process.cwd());
+      log.trace("Ready for connections");
+    });
+  },
+  
+  async close() {
+    return new Promise(function(resolve, reject) {
+      server.close(function (err) {
+        if (err) return reject(err);
+        resolve();
+      });
     });
   }
 };

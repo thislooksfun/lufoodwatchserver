@@ -8,6 +8,9 @@ if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 # 'cd' to containing directory
 cd -P -- "$(dirname -- "$0")"
 
+# Shutdown the server
+./shutdown
+
 # Uninstall crontab
 echo -e "\nUninstalling crontab..."
 node .uninstall/uninstall_crontab.js

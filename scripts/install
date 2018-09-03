@@ -10,17 +10,6 @@ if [ -z "$(type -t "git")" ]; then
   exit 1
 fi
 
-git clone --depth 1 --single-branch https://github.com/thislooksfun/lufoodwatchserver.git /var/lufoodwatch
-
-cd /var/lufoodwatch/scripts
-
-# Install node (if needed)
-echo -e "\nInstalling node..."
-chmod +x .install/install_node
-su - "$SUDO_USER" -c "cd $(pwd) ; .install/install_node ;"'exit $?'
-if [[ $? -ne 0 ]]; then
-  exit 1
-fi
 
 # Create user and group (if needed)
 echo -e "\nCreating user and group..."
@@ -28,19 +17,56 @@ chmod +x .install/createuser
 .install/createuser "$USERNAME"
 
 
+# Set ownership of the install directory (and everything in it)
+chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
+
+
+# Install node (if needed)
+echo -e "\nInstalling node..."
+chmod +x .install/install_node
+su - "$USERNAME" -c "cd -P $(pwd) ; .install/install_node ;"'exit $?'
+if [[ $? -ne 0 ]]; then
+  exit 1
+fi
+
+
+# Set ownership of the install directory (and everything in it)
+chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
+
+
 # Install node deps
 echo -e "\nInstalling dependencies..."
-npm install --production
+su - "$USERNAME" -lc "cd -P $(pwd) ; npm install --production ;"'exit $?'
 
 
-# Set ownership of the home directory
+# Install PM2
+echo -e "\nInstalling PM2..."
+su - "$USERNAME" -lc "cd -P $(pwd) ; npm install -g pm2 ;"'exit $?'
+# pm2path=$(su - "$USERNAME" -lc "cd $(pwd) ; nvm use --delete-prefix ; which pm2 ;"'exit $?')
+
+
+# Set ownership of the install directory (and everything in it)
 chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
-# Remove write permissions for all files in (and including) the home directory
-chmod -R ugo-w /var/lufoodwatch
+# Remove write permissions for all files in (and including) the install directory
+# chmod -R ugo-w /var/lufoodwatch
+
+
+# Set the user shell to be /sbin/nologin now that we're done with it
+# chmod +x .install/remove_user_shell
+# .install/remove_user_shell
 
 
 # Install crontab
 echo -e "\nInstalling crontab..."
 node .install/install_crontab.js "$USERNAME"
 
+
+# Ensure 'start', 'shutdown' and 'uninstall' are executable
+chmod +x ./start
+chmod +x ./shutdown
+chmod +x ./uninstall
+
+
 echo -e "\nInstallation finished successfully!\n"
+
+/var/lufoodwatch/scripts/start

@@ -42,12 +42,14 @@ else
   MAXID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -ug | tail -1)
   USERID=$((MAXID+1))
   
+  mkdir /var/lufoodwatch/.home
+  
   # Create the user account
   dscl . -create "/Users/$USERNAME"
-  dscl . -create "/Users/$USERNAME" UserShell /sbin/nologin
+  dscl . -create "/Users/$USERNAME" UserShell /bin/bash
   dscl . -create "/Users/$USERNAME" UniqueID "$USERID"
   dscl . -create "/Users/$USERNAME" PrimaryGroupID "$GROUPID"
-  dscl . -create "/Users/$USERNAME" NFSHomeDirectory "/var/lufoodwatch"
+  dscl . -create "/Users/$USERNAME" NFSHomeDirectory /private/var/lufoodwatch/.home  # /var is a symlink to /private/var on macOS
   dscl . -create "/Users/$USERNAME" IsHidden 1
   
   echo "Created user #$USERID: $USERNAME"

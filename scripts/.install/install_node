@@ -4,14 +4,22 @@
 if [[ $UID -eq 0 ]]; then echo "Cowardly refusing to run $0 as root."; exit 1; fi
 
 NVM=$(echo ~/.nvm/nvm.sh)
+echo "NVM directory: $NVM"
 if [ -f $NVM ]; then
-  . "$NVM"
+  . "$NVM" --no-use
 fi
 
 if [ -z "$(type -t "nvm")" ]; then
+  if ! [ -f $(echo ~/.bash_profile) ]; then
+    echo '. ~/.bashrc' > ~/.bash_profile
+  fi
+  if ! [ -f $(echo ~/.bashrc) ]; then
+    touch ~/.bashrc
+  fi
+  
   echo "Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-  . "$NVM"
+  curl -sSL https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+  . "$NVM" --no-use 2>/dev/null
   
   if [ -z "$(type -t "nvm")" ]; then
     echo "ERROR: Something went wrong during the nvm installation process. Aborting!"
