@@ -61,6 +61,7 @@ module.exports = {
   },
   
   async signIn(email, password) {
+    log.trace(`Attempting to sign in user '${email}'`);
     verify(email,    "email",    "string");
     verify(password, "password", "string");
     
@@ -68,15 +69,19 @@ module.exports = {
     let usr = res.rows[0];
     
     if (usr == null) {
+      log.trace(`No user found for email '${email}'`);
       return null;
     }
     
     if (!await pw.compare(password, usr.passhash)) {
+      log.trace(`Incorrect password for user '${email}'`);
       return null;
     }
     
     // TODO: Add actual device description
-    return await generateAuthToken(usr.userid, "TODO");
+    let token = await generateAuthToken(usr.userid, "TODO");
+    log.trace(`Logged in user ${email} with token ${token}`);
+    return token;
   },
   
   async confirmEmail(token) {

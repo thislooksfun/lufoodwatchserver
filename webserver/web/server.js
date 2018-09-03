@@ -37,7 +37,7 @@ module.exports = {
     
     var username;
     try {
-      username = fs.readFileSync(path.join(__dirname, "../.username"), "utf-8").trim();
+      username = fs.readFileSync(path.join(__dirname, "../../.username"), "utf-8").trim();
     } catch (e) {
       log.fatal("Username file not found, aborting!");
     }

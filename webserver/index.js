@@ -1,6 +1,6 @@
 "use strict";
 
-global.pquire = require("pquire");
+global.pquire = require("pquire").withBaseRelative("./");
 global.log = require("tlf-log");
 
 const nodeCleanup = require("node-cleanup");

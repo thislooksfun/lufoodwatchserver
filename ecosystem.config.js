@@ -3,7 +3,7 @@
 module.exports = {
   apps: [{
     name: "LUFoodWatch Server",
-    script: "./index.js",
+    script: "webserver/index.js",
     env: {
       NODE_ENV: "development",
     },
