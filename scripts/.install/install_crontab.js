@@ -28,6 +28,6 @@ console.log(`Installing crontab to run as user '${user}'`);
 const path = require("path");
 
 let projectRoot = path.dirname(__dirname);
-let tab = fs.readFileSync(path.join(projectRoot, "cron/tab"), "utf-8");
+let tab = fs.readFileSync(path.join(projectRoot, "crontab"), "utf-8");
 let filled = tab.replace("{user}", user).replace("{project_root}", projectRoot);
 fs.writeFileSync("/etc/cron.d/lufoodwatch", filled);
