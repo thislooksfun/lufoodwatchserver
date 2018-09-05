@@ -2,3 +2,5 @@
 
 echo "UID: $UID"
 echo "EUID: $EUID"
+
+echo "ARGV: $@"
