@@ -3,6 +3,14 @@
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
-chmod ugo+x /var/lufoodwatch/cli/bin/lufoodwatchserver
-chmod u+s /var/lufoodwatch/cli/bin/lufoodwatchserver
+cd /var/lufoodwatch/cli
+
+# Compile binary (this is required so the setuid bit works)
+mkdir bin
+gcc binary.c -o bin/lufoodwatchserver
+
+# Set file permissions (setuid + owner [read/write/exec] + group [read/write] + other [read/write])
+chmod 4755 /var/lufoodwatch/cli/bin/lufoodwatchserver
+
+# Create symlink
 ln -s /var/lufoodwatch/cli/bin/lufoodwatchserver /usr/local/bin/lufoodwatchserver

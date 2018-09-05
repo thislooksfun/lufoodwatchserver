@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cd -P /var/lufoodwatch/scripts
-
-echo "EUID: $EUID"
-echo "WD: $(pwd)"
