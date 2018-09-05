@@ -12,12 +12,15 @@ fi
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
+if ! [[ -d /var/lufoodwatch/.home ]]; then
+  echo "Home directory missing, creating now..."
+  mkdir /var/lufoodwatch/.home
+fi
+
 USERID=$(id -u $USERNAME)
 if [[ $? -eq 0 ]]; then
   echo "User $USERNAME already exists with id $USERID, skipping..."
 else
-  mkdir /var/lufoodwatch/.home
-  
   # Create user and group
   useradd -d /var/lufoodwatch/.home -s /bin/bash -r $USERNAME
   
