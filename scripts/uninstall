@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 user="_lufoodwatch"
 
 # Ensure running as root

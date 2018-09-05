@@ -2,7 +2,7 @@
 # This script creates a user account under macOS
 # Adapted from https://gist.github.com/jhbush/3087016
 
-# === Typically, this is all you need to edit ===
+set -e
 
 USERNAME=$1
 
@@ -10,8 +10,6 @@ if [[ -z "$USERNAME" ]]; then
   echo "Error removing user: No username specified"
   exit 1
 fi
-
-# ====
 
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
