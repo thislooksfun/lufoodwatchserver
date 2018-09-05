@@ -12,12 +12,12 @@ mkdir bin
 gcc binary.c -o bin/lufoodwatchserver
 
 # Set script owner
-chown $USERNAME:$USERNAME /var/lufoodwatch/cli/bin/lufoodwatchserver
+chown "$USERNAME:$USERNAME" /var/lufoodwatch/cli/bin/lufoodwatchserver
 # Set script permissions (owner [read/exec] + group/other [-nothing-])
 chmod 500 /var/lufoodwatch/cli/bin/lufoodwatchserver
 
 # Set binary owner
-chown $USERNAME:$USERNAME /var/lufoodwatch/cli/bin/lufoodwatchserver
+chown "$USERNAME:$USERNAME" /var/lufoodwatch/cli/bin/lufoodwatchserver
 # Set binary permissions (setuid + owner [read/write/exec] + group/other [read/write])
 chmod 4755 /var/lufoodwatch/cli/bin/lufoodwatchserver
 
