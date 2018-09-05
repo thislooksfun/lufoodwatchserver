@@ -13,6 +13,12 @@ if [ -z "$(type -t "git")" ]; then
 fi
 
 
+# Ensure 'start', 'shutdown' and 'uninstall' are executable
+chmod +x ./start
+chmod +x ./shutdown
+chmod +x ./uninstall
+
+
 # Create user and group (if needed)
 echo -e "\nCreating user and group..."
 chmod +x .install/createuser
@@ -61,12 +67,6 @@ chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
 # Install crontab
 echo -e "\nInstalling crontab..."
 node .install/install_crontab.js "$USERNAME"
-
-
-# Ensure 'start', 'shutdown' and 'uninstall' are executable
-chmod +x ./start
-chmod +x ./shutdown
-chmod +x ./uninstall
 
 
 echo -e "\nInstallation finished successfully!\n"
