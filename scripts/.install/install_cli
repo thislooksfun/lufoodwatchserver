@@ -15,6 +15,9 @@ echo "Compiling binary..."
 mkdir bin
 gcc binary.c -o bin/lufoodwatchserver
 
+# Remove source file now that we're done with it
+rm binary.c
+
 
 echo -n "Setting ownership & permissions..."
 # Set script owner
