@@ -2,8 +2,6 @@
 # This script creates a user account under macOS
 # Adapted from https://gist.github.com/jhbush/3087016
 
-set -e
-
 USERNAME=$1
 
 if [[ -z "$USERNAME" ]]; then
