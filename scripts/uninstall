@@ -24,7 +24,7 @@ chmod +x .uninstall/removeuser
 
 # Install CLI
 echo -e "\nRemoving CLI..."
-.install/install_cli
+.uninstall/remove_cli
 
 # Remove the program
 echo -e "\nDeleting install directory..."
