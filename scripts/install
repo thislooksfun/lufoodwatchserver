@@ -71,7 +71,8 @@ node .install/install_crontab.js "$USERNAME"
 
 # Install CLI
 echo -e "\nInstalling CLI..."
-.install/install_cli
+.install/install_cli "$USERNAME"
+
 
 echo -e "\nInstallation finished successfully!\n"
 
