@@ -12,6 +12,9 @@ if [ -z "$(type -t "git")" ]; then
   exit 1
 fi
 
+# 'cd' to containing directory
+cd -P -- "$(dirname -- "$0")"
+
 
 # Ensure 'start', 'shutdown' and 'uninstall' are executable
 chmod +x ./start
