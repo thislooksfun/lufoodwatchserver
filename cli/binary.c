@@ -10,11 +10,11 @@ int main(int argc, char** argv) {
   char* args[argc + 2];
   
   // Set the program to execute
-  args[0] = "/var/lufoodwatch/cli/script"
+  args[0] = "/var/lufoodwatch/cli/script";
   
   // Copy the input args
   for (int i = 0; i < argc; i++) {
-    args[i + 1] = argc
+    args[i + 1] = argc;
   }
   
   // Null-terminate the array
