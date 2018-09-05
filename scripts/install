@@ -76,4 +76,5 @@ echo -e "\nInstalling CLI..."
 
 echo -e "\nInstallation finished successfully!\n"
 
+
 /var/lufoodwatch/scripts/start
