@@ -3,6 +3,6 @@
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
-chmod ugo+x /usr/local/bin/lufoodwatchserver
-chmod u+s /usr/local/bin/lufoodwatchserver
+chmod ugo+x /var/lufoodwatch/cli/bin/lufoodwatchserver
+chmod u+s /var/lufoodwatch/cli/bin/lufoodwatchserver
 ln -s /var/lufoodwatch/cli/bin/lufoodwatchserver /usr/local/bin/lufoodwatchserver
