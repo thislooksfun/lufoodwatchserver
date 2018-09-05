@@ -7,10 +7,13 @@ if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
 cd /var/lufoodwatch/cli
 
+echo "Compiling binary..."
 # Compile binary (this is required so the setuid bit works)
 mkdir bin
 gcc binary.c -o bin/lufoodwatchserver
 
+
+echo -n "Setting ownership & permissions..."
 # Set script owner
 chown "$USERNAME:$USERNAME" /var/lufoodwatch/cli/script
 # Set script permissions (owner [read/exec] + group/other [-nothing-])
@@ -20,6 +23,10 @@ chmod 500 /var/lufoodwatch/cli/script
 chown "$USERNAME:$USERNAME" /var/lufoodwatch/cli/bin/lufoodwatchserver
 # Set binary permissions (setuid + owner [read/write/exec] + group/other [read/write])
 chmod 4755 /var/lufoodwatch/cli/bin/lufoodwatchserver
+echo "done"
 
+
+echo -n "Linking into /usr/local/bin/... "
 # Create symlink
 ln -s /var/lufoodwatch/cli/bin/lufoodwatchserver /usr/local/bin/lufoodwatchserver
+echo "done"
