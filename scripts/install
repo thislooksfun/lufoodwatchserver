@@ -15,14 +15,11 @@ fi
 # 'cd' to containing directory
 cd -P -- "$(dirname -- "$0")"
 
-
-# Ensure 'start', 'shutdown' and 'uninstall' are executable
-chmod +x ./start
-chmod +x ./shutdown
-chmod +x ./uninstall
+# Ensure all scripts are executable
+chmod -R +x .
 
 # Ensure CLI binary is executable, and set the 'setuid' bit
-chmod u+sx /cli/bin/lufoodwatchserver
+chmod u+sx ../cli/bin/lufoodwatchserver
 
 
 # Create user and group (if needed)
