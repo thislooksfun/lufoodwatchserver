@@ -22,6 +22,10 @@ echo -e "\nRemoving user and group..."
 chmod +x .uninstall/removeuser
 .uninstall/removeuser
 
+# Install CLI
+echo -e "\nRemoving CLI..."
+.install/install_cli
+
 # Remove the program
 echo -e "\nDeleting install directory..."
 rm -rf /var/lufoodwatch

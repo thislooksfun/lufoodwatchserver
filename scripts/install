@@ -21,6 +21,9 @@ chmod +x ./start
 chmod +x ./shutdown
 chmod +x ./uninstall
 
+# Ensure CLI binary is executable, and set the 'setuid' bit
+chmod u+sx /cli/bin/lufoodwatchserver
+
 
 # Create user and group (if needed)
 echo -e "\nCreating user and group..."
@@ -71,6 +74,10 @@ chown -R "$USERNAME:$USERNAME" /var/lufoodwatch
 echo -e "\nInstalling crontab..."
 node .install/install_crontab.js "$USERNAME"
 
+
+# Install CLI
+echo -e "\nInstalling CLI..."
+.install/install_cli
 
 echo -e "\nInstallation finished successfully!\n"
 
