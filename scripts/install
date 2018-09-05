@@ -18,9 +18,6 @@ cd -P -- "$(dirname -- "$0")"
 # Ensure all scripts are executable
 chmod -R +x .
 
-# Ensure CLI binary is executable, and set the 'setuid' bit
-chmod u+sx ../cli/bin/lufoodwatchserver
-
 
 # Create user and group (if needed)
 echo -e "\nCreating user and group..."
