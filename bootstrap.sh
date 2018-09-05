@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Exit on error
+# Exit on error
 set -e
 
 if [[ $EUID -ne 0 ]]; then

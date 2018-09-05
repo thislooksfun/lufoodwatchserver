@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit on error
+set -e
+
 # Ensure running as root
 if [[ $UID -ne 0 ]]; then echo "$0 requires root."; exit 1; fi
 
