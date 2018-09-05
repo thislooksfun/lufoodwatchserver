@@ -14,7 +14,7 @@ USERNAME=$(cat /var/lufoodwatch/.username)
 cd /var/lufoodwatch
 . .home/.bash_profile
 
-PM2=$(su - "$USERNAME" -cl 'which pm2')
+PM2=$(su - "$USERNAME" -lc 'which pm2')
 
 echo ">> $PM2"
 

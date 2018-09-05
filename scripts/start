@@ -14,12 +14,11 @@ USERNAME=$(cat /var/lufoodwatch/.username)
 cd /var/lufoodwatch
 . .home/.bash_profile
 
-PM2=$(su - "$USERNAME" -cl 'which pm2')
+PM2=$(su - "$USERNAME" -lc 'which pm2')
 
 echo -e "\nCreating PM2 startup script"
-# su - "$USERNAME" -cl 'pm2 startup'
 # This unfortunately has to be run as root
 "$PM2" startup -u _lufoodwatch --hp /private/var/lufoodwatch/.home
 
 echo -e "Starting pm2"
-su - "$USERNAME" -cl 'cd -P /var/lufoodwatch ; pm2 start ecosystem.config.js --env production && pm2 save'
+su - "$USERNAME" -lc 'cd -P /var/lufoodwatch ; pm2 start ecosystem.config.js --env production && pm2 save'
